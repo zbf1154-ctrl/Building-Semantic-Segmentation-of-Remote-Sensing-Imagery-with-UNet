@@ -1,0 +1,8 @@
+# 运行环境：Python 3.10+（本项目在 Python 3.14 + CUDA 13.2 下验证）
+# GPU 版 PyTorch 请按显卡驱动选择 CUDA 版本后安装，例如 CUDA 13.2：
+#   pip install torch --index-url https://download.pytorch.org/whl/cu132
+# 没有 GPU 时可装 CPU 版：
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.4
+numpy>=1.26,<3
+opencv-python>=4.8

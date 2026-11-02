@@ -1,0 +1,20 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+.pytest_cache/
+.DS_Store
+
+# 训练数据（体积大，不入库）
+data/
+weights/
+val_output/
+
+# 训练与推理产物
+runs/
+preds/
+*.pt
+*.pth
+*.log
