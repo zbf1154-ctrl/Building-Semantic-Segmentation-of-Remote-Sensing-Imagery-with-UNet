@@ -85,13 +85,19 @@ pip install torch --index-url https://download.pytorch.org/whl/cu132
 
 ## 数据与权重下载
 
-训练数据（1000 张 512×512 切片，761 MB）与预训练权重（`best.pt`，124 MB）已打包放在百度网盘：
+**预训练权重（推荐走 GitHub Release，全球可直连）**
+
+- v1.0.0 权重 `best.pt`（118.5 MB）：
+  <https://github.com/zbf1154-ctrl/Building-Semantic-Segmentation-of-Remote-Sensing-Imagery-with-UNet/releases/tag/v1.0.0>
+- 放到 `runs/unet/best.pt` 即可直接评估/推理，无需重新训练
+
+**训练数据 + 权重（百度网盘，含完整 data/）**
 
 - **链接**：https://pan.baidu.com/s/13bZBmqeMB4SH7vg_kDuuIQ?pwd=ubrw
 - **提取码**：`ubrw`
 - **文件**：`data&weights.rar`
 
-解压后按如下方式放置即可直接复现结果：
+解压后按如下方式放置：
 
 ```
 RS_UNet/

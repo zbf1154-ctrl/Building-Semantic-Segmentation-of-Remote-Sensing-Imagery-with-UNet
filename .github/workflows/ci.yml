@@ -25,7 +25,7 @@ jobs:
           pip install numpy pytest
 
       - name: Run unit tests
-        run: pytest -q tests
+        run: python -m pytest -q tests
 
       - name: Import check
         run: python -c "from unet import UNet, model_summary; print(model_summary(UNet()))"
