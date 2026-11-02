@@ -1,6 +1,6 @@
 # RS_UNet — 遥感影像建筑物提取
 
-[![CI](https://github.com/zbf1154-ctrl/RS_UNet/actions/workflows/ci.yml/badge.svg)](https://github.com/zbf1154-ctrl/RS_UNet/actions/workflows/ci.yml)
+[![CI](https://github.com/zbf1154-ctrl/Building-Semantic-Segmentation-of-Remote-Sensing-Imagery-with-UNet/actions/workflows/ci.yml/badge.svg)](https://github.com/zbf1154-ctrl/Building-Semantic-Segmentation-of-Remote-Sensing-Imagery-with-UNet/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -70,7 +70,7 @@ RS_UNet/
 ## 安装
 
 ```bash
-git clone https://github.com/zbf1154-ctrl/RS_UNet.git
+git clone https://github.com/zbf1154-ctrl/Building-Semantic-Segmentation-of-Remote-Sensing-Imagery-with-UNet.git
 cd RS_UNet
 python -m venv .venv
 # Windows: .venv\Scripts\activate    Linux/macOS: source .venv/bin/activate
