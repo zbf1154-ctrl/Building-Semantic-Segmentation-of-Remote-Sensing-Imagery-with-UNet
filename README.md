@@ -1,6 +1,6 @@
 # RS_UNet — 遥感影像建筑物提取
 
-[![CI](https://github.com/YOUR_GITHUB/RS_UNet/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_GITHUB/RS_UNet/actions/workflows/ci.yml)
+[![CI](https://github.com/zbf1154-ctrl/RS_UNet/actions/workflows/ci.yml/badge.svg)](https://github.com/zbf1154-ctrl/RS_UNet/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -9,6 +9,7 @@
 不依赖 `segmentation-models-pytorch` 等第三方分割库，全部代码可读可改。
 
 训练集 700 / 验证集 200 / 测试集 100 张。**单卡 RTX 5060 Laptop（8 GB）43 分钟训练，test IoU 61.1 / Dice 75.9。**
+数据与预训练权重见 [数据与权重下载](#数据与权重下载)；数据来源见 [数据来源与致谢](#数据来源与致谢)。
 
 ![测试集预测对比](assets/visual_grid.png)
 
@@ -69,7 +70,7 @@ RS_UNet/
 ## 安装
 
 ```bash
-git clone https://github.com/YOUR_GITHUB/RS_UNet.git
+git clone https://github.com/zbf1154-ctrl/RS_UNet.git
 cd RS_UNet
 python -m venv .venv
 # Windows: .venv\Scripts\activate    Linux/macOS: source .venv/bin/activate
@@ -82,11 +83,66 @@ GPU 版 PyTorch 需按驱动选择 CUDA 版本，例如：
 pip install torch --index-url https://download.pytorch.org/whl/cu132
 ```
 
-## 数据准备
+## 数据与权重下载
 
-本仓库**不包含训练数据**（体积大且有版权约束），只提供 `samples/` 下的两张示例。
+训练数据（1000 张 512×512 切片，761 MB）与预训练权重（`best.pt`，124 MB）已打包放在百度网盘：
 
-请按如下结构自行准备数据，影像与掩膜**同名一一对应**：
+- **链接**：https://pan.baidu.com/s/13bZBmqeMB4SH7vg_kDuuIQ?pwd=ubrw
+- **提取码**：`ubrw`
+- **文件**：`data&weights.rar`
+
+解压后按如下方式放置即可直接复现结果：
+
+```
+RS_UNet/
+├── data/                ← 解压得到的 6 个目录（train/val/test 的 images 与 masks）
+└── runs/unet/best.pt    ← 权重放到这里；也可用 --weights 指定任意路径
+```
+
+然后直接评估或推理，无需重新训练：
+
+```bash
+python evaluate.py --weights runs/unet/best.pt --split test --vis 6
+python predict.py --input data/test_images --weights runs/unet/best.pt --output preds/test --overlay
+```
+
+> 百度网盘对海外用户不友好，链接也可能失效；若无法访问，可按下一节从 WHU 官方渠道自行获取原始数据。
+> 代码本身不依赖网盘，网盘只用于分发数据与权重。
+
+## 数据来源与致谢
+
+本项目使用的遥感影像与建筑标签来自 **WHU Building Dataset**（武汉大学 GPCV 课题组）：
+
+- 官方主页：<https://gpcv.whu.edu.cn/data/building_dataset.html>
+- 本仓库使用的是其 **0.3 m 分辨率航空影像的 512×512 切片子集**，共 1000 张，
+  并按 **700 / 200 / 100** 重新划分训练/验证/测试集。
+  注意：这与官方原始划分（4736 / 1036 / 2416）不同，指标不能直接与 WHU 论文中的数字对比。
+- **数据版权归武汉大学 GPCV Lab 所有，本项目不主张任何数据权利。**
+  WHU 官方页面未给出明确的开源许可证（学术界通常按"仅限研究用途"理解），
+  商业使用请先联系数据方：`jishunping@whu.edu.cn`。
+
+若在论文或公开成果中使用，请引用：
+
+```bibtex
+@article{ji2019fully,
+  title   = {Fully Convolutional Networks for Multisource Building Extraction
+             From an Open Aerial and Satellite Imagery Data Set},
+  author  = {Ji, Shunping and Wei, Shiqing and Lu, Meng},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  volume  = {57},
+  number  = {1},
+  pages   = {574--586},
+  year    = {2019},
+  doi     = {10.1109/TGRS.2018.2858817}
+}
+```
+
+## 数据准备（自行获取时）
+
+若不想用网盘，可从 WHU 官方主页下载 "1.1 The cropped aerial image tiles and raster labels"（0.3 m），
+再自行切片与划分。本仓库只提供 `samples/` 下的两张示例图。
+
+请按如下结构组织数据，影像与掩膜**同名一一对应**：
 
 ```
 data/
@@ -181,5 +237,7 @@ python predict.py --input data/test_images --weights runs/unet/best.pt --output 
 
 ## 许可证
 
-代码采用 [MIT License](LICENSE)。数据与 `samples/`、`assets/` 中的图像版权归原始数据提供方所有，
-不随 MIT 授权，请勿单独再分发。
+- **代码与训练权重**：采用 [MIT License](LICENSE)。
+- **数据（`data/`、`samples/`、`assets/` 中的影像与标签）**：版权归 **武汉大学 GPCV Lab** 所有，
+  **不随 MIT 授权**，使用请遵循 [WHU Building Dataset](https://gpcv.whu.edu.cn/data/building_dataset.html)
+  的条款并引用其论文，详见上文「数据来源与致谢」。

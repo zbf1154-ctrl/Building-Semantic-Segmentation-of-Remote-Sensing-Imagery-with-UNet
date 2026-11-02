@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Your Name <you@example.com>
+Copyright (c) 2026 Ely <264212754+zbf1154-ctrl@users.noreply.github.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,13 @@ SOFTWARE.
 
 ---
 
-数据集说明：本仓库不包含训练数据（data/ 已在 .gitignore 中排除）。
-samples/ 与 assets/ 下的少量图像仅用于展示，其版权与使用许可取决于原始
-数据来源，不随上述 MIT 许可证授权，请勿单独再分发。
+数据集说明：本仓库不包含完整训练数据。
+训练数据来自 WHU Building Dataset（武汉大学 GPCV Lab，https://gpcv.whu.edu.cn/data/building_dataset.html），
+版权归原始数据提供方所有，不随上述 MIT 许可证授权。
+
+samples/ 与 assets/ 下的少量图像同样来源于该数据集，仅作展示用途，请勿单独再分发；
+公开使用或发表时请引用：
+
+  Ji, S., Wei, S., & Lu, M. (2019). Fully Convolutional Networks for Multisource
+  Building Extraction From an Open Aerial and Satellite Imagery Data Set.
+  IEEE Transactions on Geoscience and Remote Sensing, 57(1), 574-586.
